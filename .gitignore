@@ -1,0 +1,20 @@
+.idea/
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Django migrations
+*/migrations/
+
+# Environment variables
+.env
+
+# Database
+db.sqlite3
+
+# Static and media files
+/static/
+/media/
+
+# Virtual environments
+.venv/
