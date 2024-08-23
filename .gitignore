@@ -3,9 +3,6 @@
 __pycache__/
 *.py[cod]
 
-# Django migrations
-*/migrations/
-
 # Environment variables
 .env
 
@@ -18,3 +15,4 @@ db.sqlite3
 
 # Virtual environments
 .venv/
+my.conf
