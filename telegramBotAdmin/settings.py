@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'books',
     'rides',
     'cities',
+    'botUsers',
+    'support',
 ]
 
 MIDDLEWARE = [
