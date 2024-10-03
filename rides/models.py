@@ -1,7 +1,7 @@
 from django.db import models
-from django.utils import timezone
 
 class Ride(models.Model):
+    objects = None
     user_name = models.CharField(max_length=50)
     user_id = models.IntegerField()
     from_city = models.CharField(max_length=50)
