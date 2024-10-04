@@ -67,7 +67,9 @@ ROOT_URLCONF = 'telegramBotAdmin.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'support/templates/',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -42,6 +42,10 @@ class Command(BaseCommand):
                                         f"____________________\n")
 
                     await send_message(booking.passenger_id, text_for_passengers)
+
+                text_for_driver += (f"\n❗️ ԿԱՐԵՎՈՐ Է ❗️\n"
+                                    f"Այս հիշեցումից հետո տեղեր ամրագրելիս բոտն այլևս չի հիշեցնի ձեզ,"
+                                    f" բայց դուք կստանաք ծանուցում ստանդարտ ամրագրելիս")
                 await send_message(ride.user_id, text_for_driver)
             else:
                 text_for_driver = (f"❗️❗️ ՀԻՇԵՑՈՒՄ ❗️❗\n\n"
