@@ -12,6 +12,7 @@ class SupportAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', 'user_name', 'user_message', 'support_message', 'date', 'status', 'send_message_link')
     search_fields = ('user_id', 'user_name', 'date', 'status')
     list_filter = ('date', 'status', 'user_id')
+    ordering = ('date',)
 
     def send_message_link(self, obj):
         if obj.status == 0:

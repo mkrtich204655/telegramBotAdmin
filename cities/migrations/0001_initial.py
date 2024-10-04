@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='Cities',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
+                ('name', models.CharField(max_length=100, db_collation='utf8mb4_unicode_ci')),
             ],
         ),
     ]

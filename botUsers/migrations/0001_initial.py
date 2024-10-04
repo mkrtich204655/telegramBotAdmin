@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('user_id', models.BigIntegerField()),
                 ('user_name', models.CharField(db_collation='utf8mb4_unicode_ci', max_length=100)),
                 ('bad_rating', models.IntegerField()),
-                ('blocked_until', models.DateField()),
+                ('blocked_until', models.DateField(null=True)),
             ],
         ),
     ]
