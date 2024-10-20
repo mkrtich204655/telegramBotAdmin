@@ -1,11 +1,18 @@
 import os
+import logging
 from telegram import Bot
 from telegram.request import HTTPXRequest
 
-request = HTTPXRequest(pool_timeout=5)
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+request = HTTPXRequest(pool_timeout=500)
 bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
-bot = Bot(token=bot_token,  request=request)
+bot = Bot(token=bot_token, request=request)
 
 
 async def send_message(chat_id, text, markup=None):
-    await bot.send_message(chat_id=chat_id, text=text, reply_markup=markup)
+    try:
+        await bot.send_message(chat_id=chat_id, text=text, reply_markup=markup)
+    except Exception as e:
+        logger.error(f"Failed to send message to {chat_id}: {e}")
