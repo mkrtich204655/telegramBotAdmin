@@ -1,0 +1,25 @@
+{% load static %}
+<html lang="en">
+<head>
+    {% include 'layout/header.html' %}
+    <title>Find Way Web</title>
+    {% block style %}
+    {% endblock %}
+</head>
+<body>
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+
+        {% if request.path != '/login/' and  request.path != '/login/send_code' %}
+            {% include 'layout/sidebar.html' %}
+        {% endif %}
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</div>
+{% include 'layout/footer.html' %}
+{% block script %}
+{% endblock %}
+</body>
+</html>

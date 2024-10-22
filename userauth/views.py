@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from users.models import CustomUser
 from users.views import getUserById
 from telegram_bot.main import send_message
+from django.urls import reverse
+from django.contrib import messages
 
 
 # Create your views here.
@@ -17,14 +19,16 @@ def index(request):
 def send_code(request):
     if request.method == 'POST':
         if request.POST['user_id'] is None or request.POST['user_id'] == '':
-            return render(request, 'userauth/login.html', {'error': 'User Id is required'}, status=400)
+            messages.error(request, 'User Id is required')
+            return redirect(reverse('login'))
 
         user = getUserById(request.POST['user_id'])
         if user is None:
-            return render(request, 'userauth/login.html', {'error': 'User By ID Not Found'}, status=404)
+            messages.error(request, 'User By ID Not Found')
+            return redirect(reverse('login'))
 
         code = random.randint(100000, 999999)
-        async_to_sync(send_message)(user.tuid, "Hi @" + user.username + ". Your One Time Password is: " + str(code))
+        async_to_sync(send_message)(user.tuid, "Hi @" + user.username + ". Your One Time Password is: " + str(code), None)
 
         user.set_password(str(code))
         user.save()
@@ -36,7 +40,7 @@ def send_code(request):
         return render(request, 'userauth/login.html', data)
 
     else:
-        return render(request, 'userauth/login.html')
+        return redirect(reverse('login'))
 
 
 def user_login(request):
@@ -45,12 +49,14 @@ def user_login(request):
         password = request.POST.get('OTP')
 
         if not user_id or not password:
-            return render(request, 'userauth/login.html', {'error': 'User ID and password are required'}, status=400)
+            messages.error(request, 'User ID and password are required')
+            return redirect(reverse('login'))
 
         try:
             user = CustomUser.objects.get(uuid=user_id)
         except CustomUser.DoesNotExist:
-            return render(request, 'userauth/login.html', {'error': 'Invalid User ID'}, status=404)
+            messages.error(request, 'Invalid User ID')
+            return redirect(reverse('login'))
 
         user = authenticate(request, username=user.username, password=password)
 
@@ -58,11 +64,12 @@ def user_login(request):
             login(request, user)
             return redirect('/')
         else:
-            return render(request, 'userauth/login.html', {'error': 'Invalid credentials'}, status=400)
+            messages.error(request, 'Invalid credentials')
+            return redirect(reverse('login'))
     else:
-        return render(request, 'userauth/login.html')
+        return redirect(reverse('login'))
 
 
 def custom_logout(request):
     logout(request)
-    return render(request, 'userauth/login.html')
+    return redirect(reverse('login'))

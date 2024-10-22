@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'middleware.auth_middleware.AuthMiddleware',
+    'middleware.telegram_bot_middleware.TBTokenMiddleware',
 ]
 
 ROOT_URLCONF = 'telegramBotAdmin.urls'

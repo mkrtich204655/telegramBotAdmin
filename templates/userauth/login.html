@@ -1,58 +1,98 @@
-{% extends 'userauth/base.html' %}
+{% extends 'app.html' %}
 {% load static %}
 
-{% block title %} Login
-{% endblock %}
-
 {% block content %}
-    <div class="row flex-grow">
-        <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left p-5">
-                <div class="brand-logo">
-                    <img src="{% static 'assets/images/logo-dark.svg' %}">
-                </div>
-                <h4>Hello! let's get started</h4>
-                <h6 class="font-weight-light">Sign in to continue.</h6>
-                <form class="pt-3" method="post"
-                        {% if code_send %}
-                            action="{% url 'sign_in' %}"
-                            {% else %}
-                	        action="{% url 'send_code' %}"
-                        {% endif %} >
-                {% csrf_token %}
-                    <div class="form-group">
-                        <input type="text" name="user_id" class="form-control form-control-lg" id="exampleInputEmail1"
-                               placeholder="User ID" {% if user_id %} value="{{ user_id }}" {% endif %}>
+    <div class="content-wrapper d-flex align-items-center auth">
+        <div class="row flex-grow">
+            <div class="col-lg-4 mx-auto">
+                <div class="auth-form-light text-left p-5">
+                    <div class="brand-logo">
+                        <img src="{% static 'assets/images/logo-dark.svg' %}">
                     </div>
-                    {% if code_send %}
-                        <div class="form-group">
-                            <input type="password" name="OTP" class="form-control form-control-lg" id="exampleInputPassword1"
-                                   placeholder="Password">
-                        </div>
+                    <h4>Hello! let's get started</h4>
+                    {% if messages %}
+                        <ul class="messages alert alert-danger">
+                            {% for message in messages %}
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
                     {% endif %}
-
-                    <div class="mt-3">
-                        <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
-                                type="submit">
+                    <form class="pt-3" method="post"
                             {% if code_send %}
-                            	    LOGIN
+                          action="{% url 'sign_in' %}"
+                            {% else %}
+                          action="{% url 'send_code' %}"
+                            {% endif %} >
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" name="user_id" class="form-control form-control-lg"
+                                   id="exampleInputEmail1"
+                                   placeholder="User ID" {% if user_id %} value="{{ user_id }}" {% endif %}>
+                        </div>
+                        {% if code_send %}
+                            <div class="form-group">
+                                <input type="password" name="OTP" class="form-control form-control-lg"
+                                       id="exampleInputPassword1"
+                                       placeholder="Password">
+                            </div>
+                        {% endif %}
+
+                        <div class="mt-3">
+                            <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
+                                    type="submit">
+                                {% if code_send %}
+                                    LOGIN
                                 {% else %}
                                     SENT CODE
+                                {% endif %}
+                            </button>
+                            {% if code_send %}
+                                <form id="smallForm">
+                                    {% csrf_token %}
+                                    <input id="send_code_user_id" type="hidden" value="{{ user_id }}" name="user_id">
+                                    <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn mt-1"
+                                            type="button" onclick="submitSmallForm()">SEND CODE AGAIN
+                                    </button>
+                                </form>
+
                             {% endif %}
-                        </button>
-                    </div>
-{#                    <div class="my-2 d-flex justify-content-between align-items-center">#}
-{#                        <div class="form-check">#}
-{#                            <label class="form-check-label text-muted">#}
-{#                                <input type="checkbox" class="form-check-input"> Keep me signed in </label>#}
-{#                        </div>#}
-{#                        <a href="#" class="auth-link text-black">Forgot password?</a>#}
-{#                    </div>#}
-                    <div class="text-center mt-4 font-weight-light"> Don't have an account? Write /start to our telegram bot<a
-                            href="https://t.me/find_way_arm_bot" target="_blank" class="text-primary"> TELEGRAM BOT</a>
-                    </div>
-                </form>
+                        </div>
+                        <div class="text-center mt-4 font-weight-light"> Don't have an account? Write /start to our
+                            telegram bot<a
+                                    href="https://t.me/find_way_arm_bot" target="_blank" class="text-primary"> TELEGRAM
+                                BOT</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function submitSmallForm() {
+            const user_id = document.getElementById('send_code_user_id').value;
+
+            const formData = new FormData();
+            formData.append('user_id', user_id);
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            fetch("{% url 'send_code' %}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'X-CSRFToken': csrfToken
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert('sent')
+
+                    console.log(data);  // Handle the response from the server
+                    alert('Small form submitted successfully');
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
 {% endblock %}

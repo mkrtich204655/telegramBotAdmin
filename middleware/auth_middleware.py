@@ -7,9 +7,9 @@ class AuthMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if not request.user.is_authenticated:
-            if request.path not in [reverse('login'), reverse('send_code'), reverse('sign_in'), reverse('logout')]:
+        first_path_segment = request.path.strip('/').split('/')[0]
+        if first_path_segment not in ['login', 'tuser']:
+            if not request.user.is_authenticated:
                 return redirect('login')
-
         response = self.get_response(request)
         return response
