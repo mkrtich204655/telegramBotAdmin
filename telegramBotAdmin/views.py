@@ -1,7 +1,7 @@
 from django.shortcuts import render
-
-# Create your views here.
+from users.views import getUserWithRelation
 
 
 def index(request):
-    return render(request, 'dashboard/index.html')
+    data = getUserWithRelation(request.user.id)
+    return render(request, 'dashboard/index.html', data)

@@ -2,34 +2,33 @@ import json
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
-from users.models import CustomUser
-
+from users.models import CustomUser, Rating, History
+from users.serializers_folder.user_serializer import UserSerializer
+from users.serializers_folder.user_api_serializer import UserApiSerializer
 
 # Create your views here.
-
-def getUserById(uuid):
-    user = CustomUser.objects.filter(uuid=uuid).first() or None
-    return user
-
 
 @csrf_exempt
 def getUserByTUID(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        tuid = data['tuid']
-        username = data['username']
-        user = CustomUser.objects.filter(tuid=tuid).values('uuid', 'is_active').first()
-        if user is None:
-            new_user = CustomUser.objects.create_user(username=username, tuid=tuid)
-            data = {
-                "uuid": new_user.uuid,
-                "is_active": new_user.is_active,
-            }
-        else:
-            data = {
-                "uuid": user['uuid'],
-                "is_active": user['is_active'],
-            }
+        data = UserApiSerializer(data=json.loads(request.body))
+        if data.is_valid():
+            data = data.validated_data
+            tuid = data['tuid']
+            username = data['username']
+            try:
+                user = CustomUser.objects.get(tuid=tuid)
+            except CustomUser.DoesNotExist:
+                user = CustomUser.objects.create_user(username=username, tuid=tuid)
+            except Exception as e:
+                return JsonResponse(e.__context__, status=500)
 
-        return JsonResponse(data, status=200)
+            result = UserApiSerializer(user).data
+            return JsonResponse(result, status=200)
+        else:
+            return JsonResponse(data=data.errors, status=400)
+
+
+def getUserWithRelation(user_id):
+    user = CustomUser.objects.prefetch_related('ratings', 'history').filter(id=user_id).first()
+    return UserSerializer(user).data

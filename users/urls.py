@@ -1,6 +1,7 @@
 from django.urls import path
-from . import views
+from .views_folder import cars_views
 
 urlpatterns = [
-    path('get', views.getUserByTUID, name='get_user_t'),
+    path('cars', cars_views.index, name='get_cars'),
+    path('cars/edit', cars_views.editCars, name='edit_car'),
 ]

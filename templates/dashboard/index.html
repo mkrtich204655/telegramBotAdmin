@@ -2,121 +2,176 @@
 {% load static %}
 
 {% block content %}
-        <!-- partial:partials/_sidebar.html -->
-
-        <!-- partial -->
-        <div class="main-panel">
-          <div class="content-wrapper">
+    <div class="main-panel">
+        <div class="content-wrapper">
             <div class="d-xl-flex justify-content-between align-items-start border-bottom pb-3">
-              <h2 class="text-dark font-weight-bold mb-2"> Overview dashboard </h2>
-
+                <h2 class="text-dark font-weight-bold mb-2"> Overview dashboard </h2>
             </div>
             <div class="row">
-              <div class="col-md-12">
-                <div class="tab-content tab-transparent-content">
-                  <div class="tab-pane fade show active" id="business-1" role="tabpanel" aria-labelledby="business-tab">
-                    <div class="row">
-                      <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
-                        <div class="card">
-                          <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal">Rides</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">12</h2>
-                            <div class="dashboard-progress dashboard-progress-1 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-map icon-md absolute-center text-dark"></i></div>
-                            <p class="mt-4 mb-0">Saving money</p>
-                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">36000 £</h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
-                        <div class="card">
-                          <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal">Bookings</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">7</h2>
-                            <div class="dashboard-progress dashboard-progress-2 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-seat-recline-extra icon-md absolute-center text-dark"></i></div>
-                            <p class="mt-4 mb-0">Spend monet</p>
-                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">7000 £</h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-3  col-lg-6 col-sm-6 grid-margin stretch-card">
-                        <div class="card">
-                          <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal">Activity Rides</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">35%</h2>
-                            <div class="dashboard-progress dashboard-progress-3 d-flex align-items-center justify-content-center item-parent">
-                                <i class="mdi mdi-trending-up icon-md absolute-center text-dark"></i>
-                            </div>
-                            <p class="mt-4 mb-0">Cancelled rides</p>
-                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">3</h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
-                        <div class="card">
-                          <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal">Ratings</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">4.94</h2>
-                            <div class="dashboard-progress dashboard-progress-4 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-star icon-md absolute-center text-dark"></i></div>
-                            <p class="mt-4 mb-0">scumbags</p>
-                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">0</h3>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12 grid-margin">
-                        <div class="card">
-                          <div class="card-body">
+                <div class="col-md-12">
+                    <div class="tab-content tab-transparent-content">
+                        <div class="tab-pane fade show active" id="business-1" role="tabpanel"
+                             aria-labelledby="business-tab">
                             <div class="row">
-                              <div class="col-sm-12">
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                  <h4 class="card-title mb-0">Activity</h4>
-
-                                </div>
-                              </div>
-                              <div class="col-lg-3 col-sm-4 grid-margin  grid-margin-lg-0">
-                                <div class="wrapper pb-5 border-bottom">
-                                  <div class="text-wrapper d-flex align-items-center justify-content-between mb-2">
-                                    <p class="mb-0 text-dark">Total Profit</p>
-                                    <span class="text-success"><i class="mdi mdi-arrow-up"></i>2.95%</span>
-                                  </div>
-                                  <h3 class="mb-0 text-dark font-weight-bold">$ 92556</h3>
-                                  <canvas id="total-profit"></canvas>
-                                </div>
-                                <div class="wrapper pt-5">
-                                  <div class="text-wrapper d-flex align-items-center justify-content-between mb-2">
-                                    <p class="mb-0 text-dark">Expenses</p>
-                                    <span class="text-success"><i class="mdi mdi-arrow-up"></i>52.95%</span>
-                                  </div>
-                                  <h3 class="mb-4 text-dark font-weight-bold">$ 59565</h3>
-                                  <canvas id="total-expences"></canvas>
-                                </div>
-                              </div>
-                              <div class="col-lg-9 col-sm-8 grid-margin  grid-margin-lg-0">
-                                <div class="pl-0 pl-lg-4 ">
-                                  <div class="d-xl-flex justify-content-between align-items-center mb-2">
-                                    <div class="d-lg-flex align-items-center mb-lg-2 mb-xl-0">
-                                      <h3 class="text-dark font-weight-bold mr-2 mb-0">Devices sales</h3>
-                                      <h5 class="mb-0">( growth 62% )</h5>
+                                <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="mb-2 text-dark font-weight-normal">Rides</h5>
+                                            <h2 class="mb-4 text-dark font-weight-bold">{{ history.rides }}</h2>
+                                            <div class="dashboard-progress dashboard-progress-1 d-flex align-items-center justify-content-center item-parent">
+                                                <i class="mdi mdi-map icon-md absolute-center text-dark"></i></div>
+                                            <p class="mt-4 mb-0">Saving money</p>
+                                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">{{ history.saved }} £</h3>
+                                        </div>
                                     </div>
-                                    <div class="d-lg-flex">
-                                      <p class="mr-2 mb-0">Timezone:</p>
-                                      <p class="text-dark font-weight-bold mb-0">GMT-0400 Eastern Delight Time</p>
-                                    </div>
-                                  </div>
-                                  <div class="graph-custom-legend clearfix" id="device-sales-legend"></div>
-                                  <canvas id="device-sales"></canvas>
                                 </div>
-                              </div>
+                                <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="mb-2 text-dark font-weight-normal">Bookings</h5>
+                                            <h2 class="mb-4 text-dark font-weight-bold">{{ history.bookings }}</h2>
+                                            <div class="dashboard-progress dashboard-progress-2 d-flex align-items-center justify-content-center item-parent">
+                                                <i class="mdi mdi-seat-recline-extra icon-md absolute-center text-dark"></i>
+                                            </div>
+                                            <p class="mt-4 mb-0">Spend monet</p>
+                                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">{{ history.spend }} £</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3  col-lg-6 col-sm-6 grid-margin stretch-card">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="mb-2 text-dark font-weight-normal">Activity</h5>
+                                            <h2 class="mb-4 text-dark font-weight-bold">{{ history.activity }}</h2>
+                                            <div class="dashboard-progress dashboard-progress-3 d-flex align-items-center justify-content-center item-parent">
+                                                <i class="mdi mdi-trending-up icon-md absolute-center text-dark"></i>
+                                            </div>
+                                            <p class="mt-4 mb-0">Cancelled rides</p>
+                                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">{{ history.cancelled }}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h5 class="mb-2 text-dark font-weight-normal">Ratings</h5>
+                                            <h2 class="mb-4 text-dark font-weight-bold">{{ rating.rating }}</h2>
+                                            <div class="dashboard-progress dashboard-progress-4 d-flex align-items-center justify-content-center item-parent">
+                                                <i class="mdi mdi-star icon-md absolute-center text-dark"></i></div>
+                                            <p class="mt-4 mb-0">Scumbags</p>
+                                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">{{ rating.scumbags }}</h3>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
+                            <div>
+                                <div class="d-xl-flex justify-content-between align-items-start border-bottom pb-3">
+                                    <h2 class="text-dark font-weight-bold mb-2"> Coming Ride </h2>
+                                </div>
+                                <div class="row justify-content-center  pt-4">
+                                    <div class="col-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body text-center p-3 border b">
+                                                <div class="mb-2 text-dark font-weight-bold">
+                                                    <i class="mdi mdi-map-marker menu-icon"></i>
+                                                    Yerevan ->
+                                                    <i class="mdi mdi-home-map-marker menu-icon"></i>
+                                                    Gyumri
+                                                    <i class="mdi mdi-timetable menu-icon"></i>
+                                                    13:00 12/12/2024
+                                                </div>
+                                                <div class="mb-0 text-dark font-weight-normal">
+                                                    <i class="mdi mdi-car menu-icon"></i> 27 MK 727.
+                                                    <i class="mdi mdi-seat-recline-extra menu-icon"></i> Places 3/2 booked.
+                                                    <i class="mdi mdi-coin menu-icon"></i> 1000 £ for a place
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-xl-flex justify-content-between align-items-start border-bottom pb-3">
+                                    <h2 class="text-dark font-weight-bold mb-2"> Coming Travel </h2>
+                                </div>
+                                <div class="row justify-content-center pt-4">
+                                    <div class="col-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body text-center p-3 border b">
+                                                <div class="mb-2 text-dark font-weight-bold">
+                                                    <i class="mdi mdi-map-marker menu-icon"></i>
+                                                    Yerevan ->
+                                                    <i class="mdi mdi-home-map-marker menu-icon"></i>
+                                                    Gyumri
+                                                    <i class="mdi mdi-timetable menu-icon"></i>
+                                                    13:00 12/12/2024
+                                                </div>
+                                                <div class="mb-0 text-dark font-weight-normal">
+                                                    <i class="mdi mdi-car menu-icon"></i> 27 MK 727.
+                                                    <i class="mdi mdi-seat-recline-extra menu-icon"></i> 2 booked.
+                                                    <i class="mdi mdi-coin menu-icon"></i> 2000 £ total place
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-12 grid-margin">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                                        <h4 class="card-title mb-0">Activity</h4>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-sm-4 grid-margin  grid-margin-lg-0">
+                                                    <div class="wrapper pb-5 border-bottom">
+                                                        <div class="text-wrapper d-flex align-items-center justify-content-between mb-2">
+                                                            <p class="mb-0 text-dark">Total Profit</p>
+                                                            <span class="text-success"><i class="mdi mdi-arrow-up"></i>2.95%</span>
+                                                        </div>
+                                                        <h3 class="mb-0 text-dark font-weight-bold">$ 92556</h3>
+                                                        <canvas id="total-profit"></canvas>
+                                                    </div>
+                                                    <div class="wrapper pt-5">
+                                                        <div class="text-wrapper d-flex align-items-center justify-content-between mb-2">
+                                                            <p class="mb-0 text-dark">Expenses</p>
+                                                            <span class="text-success"><i class="mdi mdi-arrow-up"></i>52.95%</span>
+                                                        </div>
+                                                        <h3 class="mb-4 text-dark font-weight-bold">$ 59565</h3>
+                                                        <canvas id="total-expences"></canvas>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-9 col-sm-8 grid-margin  grid-margin-lg-0">
+                                                    <div class="pl-0 pl-lg-4 ">
+                                                        <div class="d-xl-flex justify-content-between align-items-center mb-2">
+                                                            <div class="d-lg-flex align-items-center mb-lg-2 mb-xl-0">
+                                                                <h3 class="text-dark font-weight-bold mr-2 mb-0">Devices
+                                                                    sales</h3>
+                                                                <h5 class="mb-0">( growth 62% )</h5>
+                                                            </div>
+                                                            <div class="d-lg-flex">
+                                                                <p class="mr-2 mb-0">Timezone:</p>
+                                                                <p class="text-dark font-weight-bold mb-0">GMT-0400
+                                                                    Eastern Delight Time</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="graph-custom-legend clearfix"
+                                                             id="device-sales-legend"></div>
+                                                        <canvas id="device-sales"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
+    </div>
 {% endblock %}

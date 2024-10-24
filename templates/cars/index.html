@@ -1,0 +1,69 @@
+{% extends 'app.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="d-xl-flex justify-content-between align-items-start border-bottom pb-3">
+                <h2 class="text-dark font-weight-bold mb-2"> Cars </h2>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table">
+                                {% if cars %}
+                                    <div class="card-description">
+                                        <button type="button" class="btn btn-primary btn-rounded btn-fw">Add new
+                                        </button>
+                                    </div>
+                                    <thead>
+                                    <tr>
+                                        <th>Mark</th>
+                                        <th>Color</th>
+                                        <th>Number</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for car in cars %}
+                                        <tr class="border-bottom">
+
+                                            <td>{{ car.model }}</td>
+                                            <td><div class="car_color_in_table" style="background-color: {{ car.color }}"></div></td>
+                                            <td>{{ car.number }}</td>
+                                            <td>
+                                                <button data-id="{{ car.id }}" type="button"
+                                                        class="btn btn-secondary btn-rounded btn-fw">Edit
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                {% else %}
+                                    <div class="card-description">
+                                        <p>You have not a car yet</p>
+                                        <button type="button" class="btn btn-primary btn-rounded btn-fw">Add new
+                                        </button>
+                                    </div>
+                                {% endif %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block style %}
+    <style>
+        .car_color_in_table {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border:1px solid;
+        }
+    </style>
+{% endblock %}

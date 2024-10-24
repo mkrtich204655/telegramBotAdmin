@@ -921,7 +921,7 @@
 			});
 		}
 
-		if ($("#page-view-analytic").length) {
+		if ($("#page-views_folder-analytic").length) {
 			var pageiVewAnalyticData = {
 				labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28"],
 				datasets: [{
@@ -1020,7 +1020,7 @@
 					backgroundColor: 'rgba(2, 171, 254, 1)',
 				},
 			};
-			var barChartCanvas = $("#page-view-analytic").get(0).getContext("2d");
+			var barChartCanvas = $("#page-views_folder-analytic").get(0).getContext("2d");
 			// This will get the first returned node in the jQuery collection.
 			var barChart = new Chart(barChartCanvas, {
 				type: 'line',
@@ -1030,7 +1030,7 @@
 			document.getElementById('pageViewAnalyticLengend').innerHTML = barChart.generateLegend();
 		}
 		
-		if ($("#page-view-analytic-rtl").length) {
+		if ($("#page-views_folder-analytic-rtl").length) {
 			var pageiVewAnalyticData = {
 				labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28"],
 				datasets: [{
@@ -1129,7 +1129,7 @@
 					backgroundColor: 'rgba(2, 171, 254, 1)',
 				},
 			};
-			var barChartCanvas = $("#page-view-analytic-rtl").get(0).getContext("2d");
+			var barChartCanvas = $("#page-views_folder-analytic-rtl").get(0).getContext("2d");
 			// This will get the first returned node in the jQuery collection.
 			var barChart = new Chart(barChartCanvas, {
 				type: 'line',
@@ -1139,8 +1139,8 @@
 			document.getElementById('pageViewAnalyticLengend').innerHTML = barChart.generateLegend();
     }
     
-		if ($("#page-view-analytic-dark").length) {
-			var graphGradient = document.getElementById("page-view-analytic-dark").getContext('2d');;
+		if ($("#page-views_folder-analytic-dark").length) {
+			var graphGradient = document.getElementById("page-views_folder-analytic-dark").getContext('2d');;
 			var saleGradientBg = graphGradient.createLinearGradient(25, 0, 25, 420);
 			saleGradientBg.addColorStop(0, 'rgba(55, 208, 181, 0.34)');
 			saleGradientBg.addColorStop(1, 'rgba(254, 254, 254, 0)');
@@ -1241,7 +1241,7 @@
 					backgroundColor: 'rgba(2, 171, 254, 1)',
 				},
 			};
-			var barChartCanvas = $("#page-view-analytic-dark").get(0).getContext("2d");
+			var barChartCanvas = $("#page-views_folder-analytic-dark").get(0).getContext("2d");
 			// This will get the first returned node in the jQuery collection.
 			var barChart = new Chart(barChartCanvas, {
 				type: 'line',
@@ -1250,8 +1250,8 @@
 			});
 			document.getElementById('pageViewAnalyticLengend').innerHTML = barChart.generateLegend();
 		}
-		if ($("#page-view-analytic-dark-rtl").length) {
-			var graphGradient = document.getElementById("page-view-analytic-dark-rtl").getContext('2d');;
+		if ($("#page-views_folder-analytic-dark-rtl").length) {
+			var graphGradient = document.getElementById("page-views_folder-analytic-dark-rtl").getContext('2d');;
 			var saleGradientBg = graphGradient.createLinearGradient(25, 0, 25, 420);
 			saleGradientBg.addColorStop(0, 'rgba(55, 208, 181, 0.34)');
 			saleGradientBg.addColorStop(1, 'rgba(254, 254, 254, 0)');
@@ -1352,7 +1352,7 @@
 					backgroundColor: 'rgba(2, 171, 254, 1)',
 				},
 			};
-			var barChartCanvas = $("#page-view-analytic-dark-rtl").get(0).getContext("2d");
+			var barChartCanvas = $("#page-views_folder-analytic-dark-rtl").get(0).getContext("2d");
 			// This will get the first returned node in the jQuery collection.
 			var barChart = new Chart(barChartCanvas, {
 				type: 'line',

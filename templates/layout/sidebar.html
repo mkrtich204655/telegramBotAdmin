@@ -21,7 +21,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{% url 'get_cars' %}">
                 <span class="icon-bg"><i class="mdi mdi-car menu-icon"></i></span>
                 <span class="menu-title">My Car</span>
             </a>
@@ -32,7 +32,7 @@
                 <span class="menu-title">Statistics</span>
             </a>
         </li>
-        <li class="nav-item  border-bottom border-top pt-2 pb-2">
+        <li class="nav-item  border-bottom border-top pt-2 pb-2 pr-2">
             <div class="user-details">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
@@ -40,8 +40,15 @@
                             <div class="sidebar-profile-img mr-1">
                                 <img src="{% static 'assets/images/faces/face28.png' %}" alt="image">
                             </div>
-                            <div class="sidebar-profile-text">
-                                <p class="mb-1 ml-1">Henry Klein</p>
+                            <div class="sidebar-profile-text w-100">
+                                <p class="mb-1 ml-1"><i class="mdi mdi-key menu-icon"></i> {{ user.uuid }}</p>
+                                <div class="row ml-1">
+                                     {% if user.username|length > 5 %}
+                                    <i class="mdi mdi-telegram mr-1"></i> <a href="https://t.me/{{ user.username }}" target="_blank" class="text-primary"> @{{ user.username|slice:":5" }}...</a>
+                                {% elif user.username%}
+                                    <i class="mdi mdi-telegram mr-1"></i> <a href="https://t.me/{{ user.username }}" target="_blank" class="text-primary"> @{{ user.username }}</a>
+                                {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -64,6 +71,13 @@
         </li>
         <li class="nav-item sidebar-user-actions">
 
+        </li>
+        <li class="nav-item sidebar-user-actions">
+            <div class="sidebar-user-menu">
+                <a href="https://t.me/find_way_arm_bot" target="_blank" class="nav-link menu-title">
+                    <i class="mdi mdi-telegram menu-icon"></i> TELEGRAM BOT
+                </a>
+            </div>
         </li>
         <li class="nav-item sidebar-user-actions">
             <div class="sidebar-user-menu">

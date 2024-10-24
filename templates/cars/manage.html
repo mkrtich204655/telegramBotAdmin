@@ -1,0 +1,37 @@
+{% extends 'app.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Edit Car</h4>
+                    <h4 class="card-title">New Car</h4>
+                    <form class="forms-sample">
+                        <div class="form-group row">
+                            <label for="exampleInputMobile" class="col-sm-3 col-form-label">Model</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="model" class="form-control" placeholder="Model">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Color</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="color" class="form-control" placeholder="Color">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Number</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="number" class="form-control" placeholder="Number">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

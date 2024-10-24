@@ -2340,7 +2340,7 @@
   }
 
   // Find a line map (mapping character offsets to text nodes) and a
-  // measurement cache for the given line number. (A line view might
+  // measurement cache for the given line number. (A line views_folder might
   // contain multiple lines when collapsed ranges are present.)
   function mapFromLineView(lineView, line, lineN) {
     if (lineView.line == line)
@@ -2372,7 +2372,7 @@
     return measureCharPrepared(cm, prepareMeasureForLine(cm, line), ch, bias)
   }
 
-  // Find a line view that corresponds to the given line number.
+  // Find a line views_folder that corresponds to the given line number.
   function findViewForLine(cm, lineN) {
     if (lineN >= cm.display.viewFrom && lineN < cm.display.viewTo)
       { return cm.display.view[findViewIndex(cm, lineN)] }
@@ -2899,7 +2899,7 @@
   }
 
   // Do a bulk-read of the DOM positions and sizes needed to draw the
-  // view, so that we don't interleave reading and writing to the DOM.
+  // views_folder, so that we don't interleave reading and writing to the DOM.
   function getDimensions(cm) {
     var d = cm.display, left = {}, width = {};
     var gutterLeft = d.gutters.clientLeft;
@@ -2972,7 +2972,7 @@
     return coords
   }
 
-  // Find the view element corresponding to a given line. Return null
+  // Find the views_folder element corresponding to a given line. Return null
   // when the line isn't visible.
   function findViewIndex(cm, n) {
     if (n >= cm.display.viewTo) { return null }
@@ -2985,7 +2985,7 @@
     }
   }
 
-  // Updates the display.view data structure for a given change to the
+  // Updates the display.views_folder data structure for a given change to the
   // document. From and to are in pre-change coordinates. Lendiff is
   // the amount of lines added or subtracted by the change. This is
   // used for changes that span multiple lines, or change the way
@@ -3069,7 +3069,7 @@
     if (indexOf(arr, type) == -1) { arr.push(type); }
   }
 
-  // Clear the view.
+  // Clear the views_folder.
   function resetView(cm) {
     cm.display.viewFrom = cm.display.viewTo = cm.doc.first;
     cm.display.view = [];
@@ -3101,7 +3101,7 @@
     return {index: index, lineN: newN}
   }
 
-  // Force the view to cover a given range, adding empty view element
+  // Force the views_folder to cover a given range, adding empty views_folder element
   // or clipping off existing ones as needed.
   function adjustView(cm, from, to) {
     var display = cm.display, view = display.view;
@@ -3122,7 +3122,7 @@
     display.viewTo = to;
   }
 
-  // Count the number of lines in the view whose DOM representation is
+  // Count the number of lines in the views_folder whose DOM representation is
   // out of date (or nonexistent).
   function countDirtyView(cm) {
     var view = cm.display.view, dirty = 0;
@@ -3403,7 +3403,7 @@
   // SCROLLING THINGS INTO VIEW
 
   // If an editor sits on the top or bottom of the window, partially
-  // scrolled out of view, this ensures that the cursor is visible.
+  // scrolled out of views_folder, this ensures that the cursor is visible.
   function maybeScrollWindow(cm, rect) {
     if (signalDOMEvent(cm, "scrollCursorIntoView")) { return }
 
@@ -3418,7 +3418,7 @@
     }
   }
 
-  // Scroll a given position into view (immediately), verifying that
+  // Scroll a given position into views_folder (immediately), verifying that
   // it actually became visible (as line heights are accurately
   // measured, the position of something may 'drift' during drawing).
   function scrollPosIntoView(cm, pos, end, margin) {
@@ -3454,7 +3454,7 @@
     return rect
   }
 
-  // Scroll a given set of coordinates into view (immediately).
+  // Scroll a given set of coordinates into views_folder (immediately).
   function scrollIntoView(cm, rect) {
     var scrollPos = calculateScrollPos(cm, rect);
     if (scrollPos.scrollTop != null) { updateScrollTop(cm, scrollPos.scrollTop); }
@@ -3462,7 +3462,7 @@
   }
 
   // Calculate a new scroll position needed to scroll the given
-  // rectangle into view. Returns an object with scrollTop and
+  // rectangle into views_folder. Returns an object with scrollTop and
   // scrollLeft properties. When these are undefined, the
   // vertical/horizontal position does not need to be adjusted.
   function calculateScrollPos(cm, rect) {
@@ -3522,7 +3522,7 @@
 
   // When an operation has its scrollToPos property set, and another
   // scroll action is applied before the end of the operation, this
-  // 'simulates' scrolling that position into view in a cheap way, so
+  // 'simulates' scrolling that position into views_folder in a cheap way, so
   // that the effect of intermediate scroll commands is not ignored.
   function resolveScrollToPos(cm) {
     var range$$1 = cm.curOp.scrollToPos;
@@ -3886,7 +3886,7 @@
     if (op.scrollTop != null) { setScrollTop(cm, op.scrollTop, op.forceScroll); }
 
     if (op.scrollLeft != null) { setScrollLeft(cm, op.scrollLeft, true, true); }
-    // If we need to scroll a specific position into view, do so.
+    // If we need to scroll a specific position into views_folder, do so.
     if (op.scrollToPos) {
       var rect = scrollPosIntoView(cm, clipPos(doc, op.scrollToPos.from),
                                    clipPos(doc, op.scrollToPos.to), op.scrollToPos.margin);
@@ -4183,8 +4183,8 @@
     }
   }
 
-  // Sync the actual display DOM structure with display.view, removing
-  // nodes for lines that are no longer in view, and creating the ones
+  // Sync the actual display DOM structure with display.views_folder, removing
+  // nodes for lines that are no longer in views_folder, and creating the ones
   // that are not there yet, and updating the ones that are out of
   // date.
   function patchDisplay(cm, updateNumbersFrom, dims) {
@@ -4202,8 +4202,8 @@
     }
 
     var view = display.view, lineN = display.viewFrom;
-    // Loop over the elements in the view, syncing cur (the DOM nodes
-    // in display.lineDiv) with the view as we go.
+    // Loop over the elements in the views_folder, syncing cur (the DOM nodes
+    // in display.lineDiv) with the views_folder as we go.
     for (var i = 0; i < view.length; i++) {
       var lineView = view[i];
       if (lineView.hidden) ; else if (!lineView.node || lineView.node.parentNode != container) { // Not drawn yet
@@ -4352,7 +4352,7 @@
     d.lineSpace = eltP("div", [d.measure, d.lineMeasure, d.selectionDiv, d.cursorDiv, d.lineDiv],
                       null, "position: relative; outline: none");
     var lines = eltP("div", [d.lineSpace], "CodeMirror-lines");
-    // Moved around its parent to cover visible view.
+    // Moved around its parent to cover visible views_folder.
     d.mover = elt("div", [lines], null, "position: relative");
     // Set to the height of the document, allowing scrolling.
     d.sizer = elt("div", [d.mover], "CodeMirror-sizer");
@@ -4379,16 +4379,16 @@
       else { place(d.wrapper); }
     }
 
-    // Current rendered range (may be bigger than the view window).
+    // Current rendered range (may be bigger than the views_folder window).
     d.viewFrom = d.viewTo = doc.first;
     d.reportedViewFrom = d.reportedViewTo = doc.first;
     // Information about the rendered lines.
     d.view = [];
     d.renderedView = null;
     // Holds info about a single rendered line when it was rendered
-    // for measurement, while not in view.
+    // for measurement, while not in views_folder.
     d.externalMeasured = null;
-    // Empty space (in pixels) above the view
+    // Empty space (in pixels) above the views_folder
     d.viewOffset = 0;
     d.lastWrapHeight = d.lastWrapWidth = 0;
     d.updateLineNumbers = null;
@@ -4510,7 +4510,7 @@
     }
 
     // 'Project' the visible viewport to cover the area that is being
-    // scrolled into view (if we know enough to estimate it).
+    // scrolled into views_folder (if we know enough to estimate it).
     if (dy && wheelPixelsPerUnit != null) {
       var pixels = dy * wheelPixelsPerUnit;
       var top = cm.doc.scrollTop, bot = top + display.wrapper.clientHeight;
@@ -4544,7 +4544,7 @@
   // the selection changes. A selection is one or more non-overlapping
   // (and non-touching) ranges, sorted, and an integer that indicates
   // which one is the primary selection (the one that's scrolled into
-  // view, that getCursor returns, etc).
+  // views_folder, that getCursor returns, etc).
   var Selection = function(ranges, primIndex) {
     this.ranges = ranges;
     this.primIndex = primIndex;
@@ -5022,7 +5022,7 @@
   }
 
   // The 'scroll' parameter given to many of these indicated whether
-  // the new cursor position should be scrolled into view after
+  // the new cursor position should be scrolled into views_folder after
   // modifying the selection.
 
   // If shift is held or the extend flag is set, extends a range to
@@ -5685,7 +5685,7 @@
         if (at <= sz) {
           child.insertInner(at, lines, height);
           if (child.lines && child.lines.length > 50) {
-            // To avoid memory thrashing when child.lines is huge (e.g. first view of a large file), it's never spliced.
+            // To avoid memory thrashing when child.lines is huge (e.g. first views_folder of a large file), it's never spliced.
             // Instead, small slices are taken. They're taken in order because sequential memory accesses are fastest.
             var remaining = child.lines.length % 25 + 25;
             for (var pos = remaining; pos < child.lines.length;) {
@@ -7137,7 +7137,7 @@
       if (!bound) { return false }
     }
     // Ensure previous input has been read, so that the handler sees a
-    // consistent view of the document
+    // consistent views_folder of the document
     cm.display.input.ensurePolled();
     var prevShift = cm.display.shift, done = false;
     try {
@@ -8211,8 +8211,8 @@
     var te = elt("textarea", null, null, "position: absolute; bottom: -1em; padding: 0; width: 1px; height: 1em; outline: none");
     var div = elt("div", [te], null, "overflow: hidden; position: relative; width: 3px; height: 0px;");
     // The textarea is kept positioned near the cursor to prevent the
-    // fact that it'll be scrolled into view on input from scrolling
-    // our fake cursor out of view. On webkit, when wrap=off, paste is
+    // fact that it'll be scrolled into views_folder on input from scrolling
+    // our fake cursor out of views_folder. On webkit, when wrap=off, paste is
     // very slow. So make the area wide instead.
     if (webkit) { te.style.width = "1000px"; }
     else { te.setAttribute("wrap", "off"); }
