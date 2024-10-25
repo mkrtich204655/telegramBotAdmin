@@ -24,9 +24,9 @@ class UserSerializer(serializers.Serializer):
     })
 
     def get_rating(self, obj):
-        latest_rating = obj.ratings.first()
-        return RatingSerializer(latest_rating).data if latest_rating else {}
+        rating = obj.ratings.first()
+        return RatingSerializer(rating).data if rating else {}
 
     def get_history(self, obj):
-        latest_history = obj.history.first()
-        return HistorySerializer(latest_history).data if latest_history else {}
+        history = obj.history.first()
+        return HistorySerializer(history).data if history else {}
