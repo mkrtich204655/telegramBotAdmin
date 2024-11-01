@@ -2,16 +2,19 @@ import json
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from users.models import CustomUser, Rating, History
+from users.models import CustomUser
 from users.serializers_folder.user_serializer import UserSerializer
 from users.serializers_folder.user_api_serializer import UserApiSerializer
+from telegram_bot.decode import decrypt_json
+from telegram_bot.encoding import encrypt_json
 
 # Create your views here.
 
 @csrf_exempt
 def getUserByTUID(request):
     if request.method == 'POST':
-        data = UserApiSerializer(data=json.loads(request.body))
+        decode_data = decrypt_json(json.loads(request.body))
+        data = UserApiSerializer(data=decode_data)
         if data.is_valid():
             data = data.validated_data
             tuid = data['tuid']
@@ -21,12 +24,12 @@ def getUserByTUID(request):
             except CustomUser.DoesNotExist:
                 user = CustomUser.objects.create_user(username=username, tuid=tuid)
             except Exception as e:
-                return JsonResponse(e.__context__, status=500)
+                return JsonResponse(encrypt_json({'message': e.__context__}), status=500)
 
             result = UserApiSerializer(user).data
-            return JsonResponse(result, status=200)
+            return JsonResponse(encrypt_json(result), status=200)
         else:
-            return JsonResponse(data=data.errors, status=400)
+            return JsonResponse(encrypt_json(data.errors), status=400)
 
 
 def getUserWithRelation(user_id):

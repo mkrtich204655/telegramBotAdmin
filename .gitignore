@@ -12,3 +12,5 @@ db.sqlite3
 # Virtual environments
 .venv/
 my.conf
+
+AES_ENCRYPTION_KEY.bin
