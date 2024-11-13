@@ -1,6 +1,8 @@
 from django.urls import path
-from . import views
+from .views_folder.user_views import UserView
+from .views_folder.cars_views import CarView
 
 urlpatterns = [
-    path('get', views.getUserByTUID, name='get_user_t'),
+    path('get', UserView.as_view({'post': 'get_user_by_TUID'}), name='get_user_by_tuid'),
+    path('cars/create', CarView.as_view({'post': 'create_car'}), name='create_car'),
 ]
