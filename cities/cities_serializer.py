@@ -22,3 +22,10 @@ class CitiesSerializer(serializers.Serializer):
             }
         }
         return data
+
+
+class CitySerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=50, error_messages={
+        'invalid': 'The name must be a valid text.',
+        'max_length': 'The name must be at least 50 characters long.',
+    })

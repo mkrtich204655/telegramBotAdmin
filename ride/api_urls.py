@@ -3,7 +3,7 @@ from .views_folder.ride_views import RideView
 from .views_folder.booking_views import BookingView
 
 urlpatterns = [
-    path('', RideView.as_view({'post': 'get_list'}), name='get_rides'),
+    path('get', RideView.as_view({'post': 'get_list'}), name='get_rides'),
     path('show', RideView.as_view({'post': 'show'}), name='show_ride'),
     path('cancel', RideView.as_view({'post': 'cancel'}), name='cancel_ride'),
     path('create', RideView.as_view({'post': 'publish'}), name='create_ride'),

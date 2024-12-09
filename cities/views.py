@@ -14,7 +14,7 @@ class CitiesView(ViewSet):
 
     def index(self, request):
         try:
-            serializer = CitiesSerializer(Cities.objects.all(), many=True).data
+            serializer = CitiesSerializer(Cities.objects.all().order_by('-usage'), many=True).data
             return JsonResponse(encrypt_json({'cities': serializer}), status=200)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)

@@ -17,7 +17,7 @@ class Ride(models.Model):
 
 
 class Booking(models.Model):
-    ride = models.ForeignKey(Ride, on_delete=models.CASCADE, related_name='ride')
+    ride = models.ForeignKey(Ride, on_delete=models.CASCADE, related_name='rider')
     places = models.IntegerField(default=1)
     passenger = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='passenger')
     total_price = models.IntegerField(default=0)
