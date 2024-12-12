@@ -1,25 +1,24 @@
 from datetime import timedelta, datetime, date
 
-from asgiref.sync import async_to_sync
-from django.db.models import Q, F
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton
-from telegram_bot.main import send_message
+from django.db.models import Q
+from telegram_bot.components.ride_cancel_component import RideCancel
 from ride.models import Ride
 
 
 class RideService:
     def __init__(self):
         self.model = Ride.objects
+        self.telebot_cancel_call = RideCancel()
 
     def create_ride(self, data):
         return self.model.create(**data)
 
-    def check_ride_by_time(self, user_id, rdate, time):
+    def check_ride_by_time(self, user_id, ride_date, time):
         time_plus_one_hour = (datetime.combine(datetime.today(), time) + timedelta(hours=1)).time()
         time_minus_one_hour = (datetime.combine(datetime.today(), time) - timedelta(hours=1)).time()
         return self.model.filter(
             Q(user_id=user_id) &
-            Q(date=rdate) &
+            Q(date=ride_date) &
             Q(time__gte=time_minus_one_hour) &
             Q(time__lte=time_plus_one_hour)
         ).first()
@@ -49,24 +48,7 @@ class RideService:
         passengers = ride.rider.all()
         if passengers:
             for passenger in passengers:
-                ride_text = "cancelled text"
-                markup = InlineKeyboardMarkup([
-                    [InlineKeyboardButton('YES', callback_data=f"suggestRide_{str(ride.from_city_id)}"
-                                                               f"_{str(ride.to_city_id)}_{str(ride.date)}"
-                                                               f"_{str(passenger.places)}")]
-                ])
-
-                print(passenger, passenger.passenger, passenger.passenger.tuid)
-                async_to_sync(send_message)(passenger.passenger.tuid, ride_text, markup)
+                self.telebot_cancel_call.call(passenger, ride)
                 passenger.delete()
-
-            history = ride.user.history.first()
-            history.rides = F('rides') - 1
-            history.cancelled = F('cancelled') + 1
-            history.save()
-            rating = ride.user.ratings.first()
-            if rating.rating > 0:
-                rating.rating = F('rating') - 1
-                rating.save()
 
         return ride.delete()

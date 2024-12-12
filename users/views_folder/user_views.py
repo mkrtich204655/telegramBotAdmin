@@ -1,11 +1,8 @@
-import json
-
 from rest_framework.viewsets import ViewSet
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from users.models import CustomUser
 from users.serializers_folder.user_api_serializer import UserApiSerializer
-from telegram_bot.decode import decrypt_json
 from telegram_bot.encode import encrypt_json
 from users.services.user_service import UserService
 
@@ -14,14 +11,12 @@ class UserView(ViewSet):
     @csrf_exempt
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.decrypt = decrypt_json
         self.encrypt = encrypt_json
         self.userSerializer = UserApiSerializer
         self.service = UserService()
 
     def get_user_by_TUID(self, request):
-        decode_data = self.decrypt(json.loads(request.body))
-        data = self.userSerializer(data=decode_data)
+        data = self.userSerializer(data=request.dec_body)
 
         if data.is_valid():
             validated_data = data.validated_data

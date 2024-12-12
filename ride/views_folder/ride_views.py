@@ -1,11 +1,8 @@
-import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.viewsets import ViewSet
-
-from ride.serializers_folder.ride_serializer import RideSerializer, RideModelSerializer
+from ride.serializers_folder.ride_serializer import RideSerializer, RideModelSerializer, RideDetailSerializer
 from users.serializers_folder.user_api_serializer import UserApiSerializer
-from telegram_bot.decode import decrypt_json
 from telegram_bot.encode import encrypt_json
 from ride.services.ride_service import RideService
 from users.services.user_service import UserService
@@ -13,9 +10,8 @@ from users.services.user_service import UserService
 
 class RideView(ViewSet):
     @csrf_exempt
-    def __init__(self,  **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.decrypt = decrypt_json
         self.encrypt = encrypt_json
         self.userSerializer = UserApiSerializer
         self.service = RideService()
@@ -23,8 +19,7 @@ class RideView(ViewSet):
         self.modelSerializer = RideModelSerializer()
 
     def publish(self, request):
-        decode_data = self.decrypt(json.loads(request.body))
-        ride_serializer = RideSerializer(data=decode_data)
+        ride_serializer = RideSerializer(data=request.dec_body)
 
         if ride_serializer.is_valid():
             ride_data = ride_serializer.validated_data
@@ -48,9 +43,7 @@ class RideView(ViewSet):
             return JsonResponse(self.encrypt(ride_serializer.errors), safe=False, status=400)
 
     def get_list(self, request):
-        decode_data = self.decrypt(json.loads(request.body))
-        ride_list_serializer = RideSerializer(data=decode_data)
-        print(decode_data)
+        ride_list_serializer = RideSerializer(data=request.dec_body)
         if ride_list_serializer.is_valid():
             ride_data = ride_list_serializer.validated_data
 
@@ -66,27 +59,21 @@ class RideView(ViewSet):
             return JsonResponse(self.encrypt(ride_list_serializer.errors), safe=False, status=400)
 
     def show(self, request):
-        decode_data = self.decrypt(json.loads(request.body))
-        ride_list_serializer = RideSerializer(data=decode_data)
+        ride_list_serializer = RideSerializer(data=request.dec_body)
         if ride_list_serializer.is_valid():
             ride_data = ride_list_serializer.validated_data
 
             ride = self.service.get_ride_by_id(ride_data)
-            return JsonResponse(self.encrypt(RideSerializer(ride).data), safe=False, status=200)
+            return JsonResponse(self.encrypt(RideDetailSerializer(ride).data), safe=False, status=200)
         else:
             print(ride_list_serializer.errors)
             return JsonResponse(self.encrypt(ride_list_serializer.errors), safe=False, status=400)
 
     def cancel(self, request):
-        decode_data = self.decrypt(json.loads(request.body))
-        ride_serializer = RideSerializer(data=decode_data)
+        ride_serializer = RideSerializer(data=request.dec_body)
         if ride_serializer.is_valid():
             ride_data = ride_serializer.validated_data
             self.service.cancel_ride_by_id(ride_data['id'])
             return JsonResponse(self.encrypt({"status": True, "text": "ride was cancelled"}), safe=False, status=200)
         else:
             return JsonResponse(self.encrypt({"status": False, "text": "something went wrong"}), safe=False, status=500)
-
-
-
-

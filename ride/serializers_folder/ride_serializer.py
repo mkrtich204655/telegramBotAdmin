@@ -5,6 +5,23 @@ from users.serializers_folder.car_serializer import CarSerializer
 from users.serializers_folder.user_serializer import UserSerializer
 
 
+class RideModelSerializer:
+
+    def to_dict(self, obj):
+        return {
+            "from_city_id": obj['from_city_id'],
+            "to_city_id": obj['to_city_id'],
+            "user_id": obj['user_id'],
+            "car_id": obj['car_id'],
+            "price": obj['price'],
+            "places": obj['places'],
+            "free_places": obj['free_places'],
+            "date": obj['date'],
+            "time": obj['time'],
+            "baggage": obj['baggage'],
+        }
+
+
 class RideSerializer(serializers.Serializer):
     from_city = serializers.SerializerMethodField()
     to_city = serializers.SerializerMethodField()
@@ -65,18 +82,10 @@ class RideSerializer(serializers.Serializer):
         return UserSerializer(user).data if user else {}
 
 
-class RideModelSerializer:
+class RideDetailSerializer(RideSerializer):
+    bookings = serializers.SerializerMethodField()
 
-    def to_dict(self, obj):
-        return {
-            "from_city_id": obj['from_city_id'],
-            "to_city_id": obj['to_city_id'],
-            "user_id": obj['user_id'],
-            "car_id": obj['car_id'],
-            "price": obj['price'],
-            "places": obj['places'],
-            "free_places": obj['free_places'],
-            "date": obj['date'],
-            "time": obj['time'],
-            "baggage": obj['baggage'],
-        }
+    def get_bookings(self, obj):
+        bookings = obj.rider.all()
+        return [{'places': booking.places, 'total_price': booking.total_price, 'passenger_id': booking.passenger.uuid,
+                 'passenger_username': booking.passenger.username} for booking in bookings]
