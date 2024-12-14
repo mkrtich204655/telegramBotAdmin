@@ -88,4 +88,5 @@ class RideDetailSerializer(RideSerializer):
     def get_bookings(self, obj):
         bookings = obj.rider.all()
         return [{'places': booking.places, 'total_price': booking.total_price, 'passenger_id': booking.passenger.uuid,
-                 'passenger_username': booking.passenger.username} for booking in bookings]
+                 'passenger_username': booking.passenger.username, 'passenger_phone': booking.passenger.phone} for
+                booking in bookings]

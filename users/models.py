@@ -8,7 +8,7 @@ class CustomUser(AbstractUser):
     uuid = models.IntegerField(unique=True, editable=False)
     tuid = models.BigIntegerField(unique=True, default=None, null=True)
     phone = models.BigIntegerField(unique=True, default=None, null=True)
-    username = models.CharField(max_length=150, unique=True, null=True)
+    username = models.CharField(max_length=150, default=None, unique=True, null=True)
     first_name = models.CharField(max_length=150, null=True)
     last_name = models.CharField(max_length=150, null=True)
     email = models.CharField(max_length=150, null=True)

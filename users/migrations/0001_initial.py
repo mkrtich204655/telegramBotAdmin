@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('uuid', models.IntegerField(editable=False, unique=True)),
                 ('tuid', models.BigIntegerField(default=None, null=True, unique=True)),
                 ('phone', models.BigIntegerField(default=None, null=True, unique=True)),
-                ('username', models.CharField(max_length=150, null=True, unique=True)),
+                ('username', models.CharField(max_length=150, default=None, null=True, unique=True)),
                 ('first_name', models.CharField(max_length=150, null=True)),
                 ('last_name', models.CharField(max_length=150, null=True)),
                 ('email', models.CharField(max_length=150, null=True)),

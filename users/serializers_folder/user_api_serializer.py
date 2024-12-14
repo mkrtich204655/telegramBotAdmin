@@ -17,6 +17,9 @@ class UserApiSerializer(serializers.Serializer):
             'invalid': 'The username must be a valid text.',
             'max_length': 'The username must be at least 50 characters long.',
         })
+    phone = serializers.IntegerField(allow_null=True, required=False, error_messages={
+            'invalid': 'The phone must be a valid integer.',
+        })
 
     def to_representation(self, instance):
         result = super(UserApiSerializer, self).to_representation(instance)
