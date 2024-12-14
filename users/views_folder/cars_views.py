@@ -2,13 +2,10 @@ from django.http import JsonResponse
 from rest_framework.viewsets import ViewSet
 from users.serializers_folder.car_serializer import CarSerializer, CarCreateSerializer
 from django.views.decorators.csrf import csrf_exempt
-
 from users.serializers_folder.user_api_serializer import UserApiSerializer
 from users.services.cars_service import CarsService
 from users.services.user_service import UserService
-from telegram_bot.decode import decrypt_json
 from telegram_bot.encode import encrypt_json
-import json
 
 
 class CarView(ViewSet):
@@ -17,12 +14,10 @@ class CarView(ViewSet):
         super().__init__(**kwargs)
         self.service = CarsService()
         self.userService = UserService()
-        self.decrypt = decrypt_json
         self.encrypt = encrypt_json
 
     def create_car(self, request):
-        decode_data = self.decrypt(json.loads(request.body))
-        car_serializer = CarCreateSerializer(data=decode_data)
+        car_serializer = CarCreateSerializer(data=request.dec_body)
 
         if car_serializer.is_valid():
             car_data = car_serializer.validated_data
@@ -43,10 +38,8 @@ class CarView(ViewSet):
         else:
             return JsonResponse(self.encrypt(car_serializer.errors), safe=False, status=400)
 
-
     def get_cars(self, request):
-        decode_data = self.decrypt(json.loads(request.body))
-        user_id_serializer = UserApiSerializer(data=decode_data)
+        user_id_serializer = UserApiSerializer(data=request.dec_body)
 
         if user_id_serializer.is_valid():
             user_data = user_id_serializer.validated_data

@@ -19,6 +19,9 @@ class UserSerializer(serializers.Serializer):
         'invalid': 'The username must be a valid text.',
         'max_length': 'The username must be at least 50 characters long.',
     })
+    phone = serializers.IntegerField(error_messages={
+        'invalid': 'The phone must be a valid Integer.',
+    })
     is_active = serializers.BooleanField(error_messages={
         'invalid': 'The is_active must be a valid boolean.',
     })

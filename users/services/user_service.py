@@ -17,5 +17,11 @@ class UserService:
     def get_user_by_TUID(self, id):
         return self.model.get(Q(tuid=id) | Q(id=id))
 
-    def create_user_name_and_TUID(self, username, tuid):
-        return self.model.create_user(username=username, tuid=tuid)
+    def create_user_name_and_TUID(self, username, tuid, phone):
+        return self.model.create(username=username, tuid=tuid, phone=phone)
+
+    def update_username(self, username, tuid):
+        return self.model.filter(tuid=tuid).update(username=username)
+
+    def update_phone(self, phone, tuid):
+        return self.model.filter(tuid=tuid).update(username=phone)
