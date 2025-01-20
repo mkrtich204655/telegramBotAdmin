@@ -25,13 +25,13 @@
                             {% endif %} >
                         {% csrf_token %}
                         <div class="form-group">
-                            <input type="text" name="user_id" class="form-control form-control-lg"
+                            <input type="text" name="uuid" class="form-control form-control-lg"
                                    id="exampleInputEmail1"
-                                   placeholder="User ID" {% if user_id %} value="{{ user_id }}" {% endif %}>
+                                   placeholder="User UUID" {% if uuid %} value="{{ uuid }}" {% endif %}>
                         </div>
                         {% if code_send %}
                             <div class="form-group">
-                                <input type="password" name="OTP" class="form-control form-control-lg"
+                                <input type="password" name="password" class="form-control form-control-lg"
                                        id="exampleInputPassword1"
                                        placeholder="Password">
                             </div>
@@ -49,7 +49,7 @@
                             {% if code_send %}
                                 <form id="smallForm">
                                     {% csrf_token %}
-                                    <input id="send_code_user_id" type="hidden" value="{{ user_id }}" name="user_id">
+                                    <input id="send_code_user_id" type="hidden" value="{{ uuid }}" name="uuid">
                                     <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn mt-1"
                                             type="button" onclick="submitSmallForm()">SEND CODE AGAIN
                                     </button>
@@ -72,10 +72,10 @@
 {% block script %}
     <script>
         function submitSmallForm() {
-            const user_id = document.getElementById('send_code_user_id').value;
+            const uuid = document.getElementById('send_code_user_id').value;
 
             const formData = new FormData();
-            formData.append('user_id', user_id);
+            formData.append('uuid', uuid);
             const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
             fetch("{% url 'send_code' %}", {

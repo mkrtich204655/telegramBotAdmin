@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
+    'rest_framework',
     'userauth',
     'cities',
     'ride'
@@ -164,3 +165,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Add this to settings.py
 AUTH_USER_MODEL = 'users.CustomUser'
+
+GOOGLE_MAPS_API_KEY = "your_google_maps_api_key"

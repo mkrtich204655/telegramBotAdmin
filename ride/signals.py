@@ -44,7 +44,7 @@ def call(sender, instance, **kwargs):
 def decrement_driver_rating(instance):
     rating = instance.user.ratings.first()
     if rating.rating > 0:
-        rating.rating -= 1
+        rating.rating -= 0.1
         rating.save()
 
 

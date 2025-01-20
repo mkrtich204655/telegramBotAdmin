@@ -10,12 +10,9 @@ def set_unique_uuid(sender, instance, **kwargs):
 
 
 @receiver(post_save, sender=CustomUser)
-def creat_rating(sender, instance, **kwargs):
+def call(sender, instance, **kwargs):
     if not Rating.objects.filter(user=instance).exists():
         Rating.objects.create(user=instance)
 
-
-@receiver(post_save, sender=CustomUser)
-def creat_history(sender, instance, **kwargs):
     if not History.objects.filter(user=instance).exists():
         History.objects.create(user=instance)

@@ -14,6 +14,9 @@ class CustomUser(AbstractUser):
     email = models.CharField(max_length=150, null=True)
     password = models.CharField(max_length=128, null=True, verbose_name='password')
 
+    def __str__(self):
+        return str(self.uuid)  # Ensure this returns a string
+
     def generate_uuid(self):
         while True:
             random_number = str(random.randint(100000, 999999))
@@ -24,7 +27,7 @@ class CustomUser(AbstractUser):
 
 class Rating(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='ratings')
-    rating = models.IntegerField(default=0)
+    rating = models.IntegerField(default=5)
     scumbags = models.IntegerField(default=0)
     blocked_until = models.DateTimeField(null=True)
 

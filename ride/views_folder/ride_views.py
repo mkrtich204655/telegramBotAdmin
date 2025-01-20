@@ -6,6 +6,7 @@ from users.serializers_folder.user_api_serializer import UserApiSerializer
 from telegram_bot.encode import encrypt_json
 from ride.services.ride_service import RideService
 from users.services.user_service import UserService
+from telegramBotAdmin.services import map_service
 
 
 class RideView(ViewSet):

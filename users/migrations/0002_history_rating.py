@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
             name='Rating',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('rating', models.IntegerField(default=0)),
+                ('rating', models.IntegerField(default=5)),
                 ('scumbags', models.IntegerField(default=0)),
                 ('blocked_until', models.DateTimeField(null=True)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),

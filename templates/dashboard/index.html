@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-    <div class="main-panel">
+    <div class="main-panel" id="main-panel">
         <div class="content-wrapper">
             <div class="d-xl-flex justify-content-between align-items-start border-bottom pb-3">
                 <h2 class="text-dark font-weight-bold mb-2"> Overview dashboard </h2>
@@ -69,49 +69,72 @@
                                     <h2 class="text-dark font-weight-bold mb-2"> Coming Ride </h2>
                                 </div>
                                 <div class="row justify-content-center  pt-4">
-                                    <div class="col-12 grid-margin stretch-card">
-                                        <div class="card">
-                                            <div class="card-body text-center p-3 border b">
-                                                <div class="mb-2 text-dark font-weight-bold">
-                                                    <i class="mdi mdi-map-marker menu-icon"></i>
-                                                    Yerevan ->
-                                                    <i class="mdi mdi-home-map-marker menu-icon"></i>
-                                                    Gyumri
-                                                    <i class="mdi mdi-timetable menu-icon"></i>
-                                                    13:00 12/12/2024
-                                                </div>
-                                                <div class="mb-0 text-dark font-weight-normal">
-                                                    <i class="mdi mdi-car menu-icon"></i> 27 MK 727.
-                                                    <i class="mdi mdi-seat-recline-extra menu-icon"></i> Places 3/2 booked.
-                                                    <i class="mdi mdi-coin menu-icon"></i> 1000 £ for a place
+                                    {% if rides.0 %}
+                                        <div class="col-12 grid-margin stretch-card">
+                                            <div class="card">
+                                                <div class="card-body text-center p-3 border b">
+                                                    <div class="mb-2 text-dark font-weight-bold">
+                                                        Ride ID: {{ rides.0.id }}
+                                                    </div>
+                                                    <div class="mb-2 text-dark font-weight-bold">
+                                                        <i class="mdi mdi-map-marker menu-icon"></i>
+                                                        {{ rides.0.from_city.name }} ->
+                                                        <i class="mdi mdi-home-map-marker menu-icon"></i>
+                                                        {{ rides.0.to_city.name }}
+                                                    </div>
+                                                    <div class="mb-2 text-dark font-weight-bold">
+                                                        <i class="mdi mdi-timetable menu-icon"></i>
+                                                        {{ rides.0.date }} {{ rides.0.time }}
+                                                    </div>
+                                                    <div class="mb-0 text-dark font-weight-normal">
+                                                        <i class="mdi mdi-car menu-icon" style="color: {{ rides.0.car.color }}"></i> {{ rides.0.car.color }} {{ rides.0.car.model }} {{ rides.0.car.number }}.
+                                                    </div>
+                                                    <div class="mb-0 text-dark font-weight-normal">
+                                                        <i class="mdi mdi-seat-recline-extra menu-icon"></i>
+                                                        Places {{ rides.0.places }}/{{ rides.0.free_places }} Free.
+                                                        <i class="mdi mdi-coin menu-icon"></i> {{ rides.0.price }} £ for
+                                                        a place
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    {% else %}
+                                        <div> you dont have a ride yet</div>
+                                    {% endif %}
                                 </div>
                                 <div class="d-xl-flex justify-content-between align-items-start border-bottom pb-3">
                                     <h2 class="text-dark font-weight-bold mb-2"> Coming Travel </h2>
                                 </div>
                                 <div class="row justify-content-center pt-4">
-                                    <div class="col-12 grid-margin stretch-card">
-                                        <div class="card">
-                                            <div class="card-body text-center p-3 border b">
-                                                <div class="mb-2 text-dark font-weight-bold">
-                                                    <i class="mdi mdi-map-marker menu-icon"></i>
-                                                    Yerevan ->
-                                                    <i class="mdi mdi-home-map-marker menu-icon"></i>
-                                                    Gyumri
-                                                    <i class="mdi mdi-timetable menu-icon"></i>
-                                                    13:00 12/12/2024
-                                                </div>
-                                                <div class="mb-0 text-dark font-weight-normal">
-                                                    <i class="mdi mdi-car menu-icon"></i> 27 MK 727.
-                                                    <i class="mdi mdi-seat-recline-extra menu-icon"></i> 2 booked.
-                                                    <i class="mdi mdi-coin menu-icon"></i> 2000 £ total place
+                                    {% if bookings.0 %}
+                                        <div class="col-12 grid-margin stretch-card">
+                                            <div class="card">
+                                                <div class="card-body text-center p-3 border b">
+                                                    <div class="mb-2 text-dark font-weight-bold">
+                                                        <i class="mdi mdi-map-marker menu-icon"></i>
+                                                        Yerevan ->
+                                                        <i class="mdi mdi-home-map-marker menu-icon"></i>
+                                                        Gyumri
+                                                        <i class="mdi mdi-timetable menu-icon"></i>
+                                                        13:00 12/12/2024
+                                                    </div>
+                                                    <div class="mb-0 text-dark font-weight-normal">
+                                                        <i class="mdi mdi-car menu-icon"></i> 27 MK 727.
+                                                        <i class="mdi mdi-seat-recline-extra menu-icon"></i> 2 booked.
+                                                        <i class="mdi mdi-coin menu-icon"></i> 2000 £ total place
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    {% else %}
+                                        <div class="col-12 grid-margin stretch-card">
+                                            <div class="card text-center">
+                                                <div class="m-2 mt-3 text-dark font-weight-bold"><p>you dont have
+                                                    booking yet, for booking a ride you need to move to the bot</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 </div>
 
                             </div>
@@ -174,4 +197,25 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block script %}
+    <script>
+     $(document).ready(function() {
+            $('#cars').click(function() {
+                $.get('/cars', function(response) {
+                    $('#main-panel').html(response.html);
+                });
+            });
+            $('#rides').click(function() {
+                $.get('/rides', function(response) {
+                    $('#main-panel').html(response.html);
+                });
+            });
+            $('#bookings').click(function() {
+                $.get('/bookings', function(response) {
+                    $('#main-panel').html(response.html);
+                });
+            });
+        });
+    </script>
 {% endblock %}

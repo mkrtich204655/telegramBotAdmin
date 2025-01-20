@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from users.serializers_folder.history_serializer import HistorySerializer
 from users.serializers_folder.rating_serializer import RatingSerializer
 
@@ -7,6 +6,9 @@ from users.serializers_folder.rating_serializer import RatingSerializer
 class UserSerializer(serializers.Serializer):
     rating = serializers.SerializerMethodField()
     history = serializers.SerializerMethodField()
+    rides = serializers.SerializerMethodField()
+    bookings = serializers.SerializerMethodField()
+    cars = serializers.SerializerMethodField()
 
     uuid = serializers.IntegerField(max_value=999999, min_value=100000, error_messages={
             'invalid': 'The uuid must be a valid integer.',
@@ -33,3 +35,15 @@ class UserSerializer(serializers.Serializer):
     def get_history(self, obj):
         history = obj.history.first()
         return HistorySerializer(history).data if history else {}
+
+    def get_rides(self, obj):
+        rides = obj.user.all()
+        return rides or {}
+
+    def get_bookings(self, obj):
+        bookings = obj.passenger.all()
+        return bookings or {}
+
+    def get_cars(self, obj):
+        cars = obj.cars.all()
+        return cars or {}

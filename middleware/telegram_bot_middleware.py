@@ -16,12 +16,12 @@ class TBTokenMiddleware:
             if token is None or token != os.getenv('TBTOKEN'):
                 return JsonResponse(encrypt_json({'data': 'Permission denied'}), status=501)
 
-        try:
-            if request.body:
-                dec_body = decrypt_json(json.loads(request.body))
-                request.dec_body = dec_body
-        except (json.JSONDecodeError, TypeError) as e:
-            return JsonResponse(encrypt_json({'data': 'Invalid request format'}), status=400)
+            try:
+                if request.body:
+                    dec_body = decrypt_json(json.loads(request.body))
+                    request.dec_body = dec_body
+            except (json.JSONDecodeError, TypeError) as e:
+                return JsonResponse(encrypt_json({'data': 'Invalid request format'}), status=400)
 
         response = self.get_response(request)
         return response

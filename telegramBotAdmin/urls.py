@@ -7,7 +7,10 @@ from cities import urls as cities_urls
 from ride import api_urls as rides_urls
 
 urlpatterns = [
-    path('', BaseView.index, name='index'),
+    path('', BaseView.as_view({'get': 'index'}), name='index'),
+    path('cars/', BaseView.as_view({'get': 'cars'}), name='cars'),
+    path('rides/', BaseView.as_view({'get': 'rides'}), name='rides'),
+    path('bookings/', BaseView.as_view({'get': 'bookings'}), name='bookings'),
     path('admin/', admin.site.urls),
     path('login/', include(auth_urls)),
     path('tuser/', include(users_api_urls)),

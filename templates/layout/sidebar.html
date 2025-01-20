@@ -9,28 +9,22 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="">
+            <p class="nav-link">
                 <span class="icon-bg"><i class="mdi mdi-map menu-icon"></i></span>
-                <span class="menu-title">Rides</span>
-            </a>
+                <span class="menu-title" id="rides">Rides</span>
+            </p>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="">
+            <p class="nav-link">
                 <span class="icon-bg"><i class="mdi mdi-seat-recline-extra menu-icon"></i></span>
-                <span class="menu-title">Books</span>
-            </a>
+                <span class="menu-title" id="bookings">Bookings</span>
+            </p>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'get_cars' %}">
+            <p class="nav-link">
                 <span class="icon-bg"><i class="mdi mdi-car menu-icon"></i></span>
-                <span class="menu-title">My Car</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">
-                <span class="icon-bg"><i class="mdi mdi-trending-up menu-icon"></i></span>
-                <span class="menu-title">Statistics</span>
-            </a>
+                <span class="menu-title" id="cars">My Car</span>
+            </p>
         </li>
         <li class="nav-item  border-bottom border-top pt-2 pb-2 pr-2">
             <div class="user-details">
@@ -43,30 +37,22 @@
                             <div class="sidebar-profile-text w-100">
                                 <p class="mb-1 ml-1"><i class="mdi mdi-key menu-icon"></i> {{ user.uuid }}</p>
                                 <div class="row ml-1">
-                                     {% if user.username|length > 5 %}
-                                    <i class="mdi mdi-telegram mr-1"></i> <a href="https://t.me/{{ user.username }}" target="_blank" class="text-primary"> @{{ user.username|slice:":5" }}...</a>
-                                {% elif user.username%}
-                                    <i class="mdi mdi-telegram mr-1"></i> <a href="https://t.me/{{ user.username }}" target="_blank" class="text-primary"> @{{ user.username }}</a>
-                                {% endif %}
+                                    {% if user.username|length > 5 %}
+                                        <i class="mdi mdi-telegram mr-1"></i>
+                                        <a href="https://t.me/{{ user.username }}" target="_blank" class="text-primary">
+                                            @{{ user.username|slice:":5" }}...</a>
+                                    {% elif user.username %}
+                                        <i class="mdi mdi-telegram mr-1"></i>
+                                        <a href="https://t.me/{{ user.username }}" target="_blank" class="text-primary">
+                                            @{{ user.username }}</a>
+                                    {% else %}
+                                        <i class="mdi mdi-phone mr-1"></i> +{{ user.phone }}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                        <div class="badge badge-danger">3</div>
-                        <i class="menu-arrow"></i>
-                    </a>
                 </div>
-            </div>
-            <i class="menu-arrow"></i>
-            <div class="collapse" id="auth">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="#"> Blank Page </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"> Login </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"> Register </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"> 404 </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"> 500 </a></li>
-                </ul>
             </div>
         </li>
         <li class="nav-item sidebar-user-actions">
@@ -76,13 +62,6 @@
             <div class="sidebar-user-menu">
                 <a href="https://t.me/find_way_arm_bot" target="_blank" class="nav-link menu-title">
                     <i class="mdi mdi-telegram menu-icon"></i> TELEGRAM BOT
-                </a>
-            </div>
-        </li>
-        <li class="nav-item sidebar-user-actions">
-            <div class="sidebar-user-menu">
-                <a href="#" class="nav-link"><i class="mdi mdi-settings menu-icon"></i>
-                    <span class="menu-title">Settings</span>
                 </a>
             </div>
         </li>
