@@ -14,7 +14,7 @@ services:
       - mysql_data:/var/lib/mysql
   tba_web:
     build: .
-    command: "python3 /var/www/html/project/manage.py runserver 0.0.0.0:8000"
+    command: /var/www/html/project/entrypoint.sh
     volumes:
       - .:/app
     ports:

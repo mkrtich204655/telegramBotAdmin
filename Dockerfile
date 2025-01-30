@@ -25,6 +25,9 @@ RUN pip3 install --upgrade pip && pip3 install --timeout=60 --retries=5 -r req.t
 
 COPY . /var/www/html/project
 
+COPY entrypoint.sh /var/www/html/project/entrypoint.sh
+RUN chmod +x /var/www/html/project/entrypoint.sh
+
 # RUN python /var/www/html/project/manage.py migrate
 
 
