@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'userauth',
     'cities',
-    'ride'
+    'ride',
+    'django_seed'
 ]
 
 MIDDLEWARE = [

@@ -15,9 +15,11 @@ cryptography==43.0.3
 cycler==0.12.1
 distlib==0.3.8
 Django==5.0.3
+django-seed==0.3.1
 djangorestframework==3.15.2
 dnspython==2.6.1
 email_validator==2.1.1
+Faker==35.0.0
 fastapi==0.111.0
 fastapi-cli==0.0.3
 filelock==3.13.4
@@ -101,6 +103,7 @@ tensorboard-data-server==0.7.2
 tensorflow==2.16.1
 termcolor==2.4.0
 thop==0.1.1.post2209072238
+toposort==1.10
 torch==2.3.0
 torchvision==0.18.0
 tqdm==4.66.2
@@ -118,4 +121,3 @@ websockets==12.0
 Werkzeug==3.0.2
 wheel==0.43.0
 wrapt==1.16.0
-
