@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand
 from django_seed import Seed
-from users.models import CustomUser
-from django.contrib.auth.hashers import make_password 
+from cities.models import Cities
 
 class Command(BaseCommand):
     help = 'Seed database with test data'
@@ -9,20 +8,11 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         seeder = Seed.seeder()
 
-        seeder.add_entity(CustomUser, 1, {
-            'username':  'superuser3',
-            'email': "superuser@gmail.com",
-            'uuid': 111111,
-            'tuid': 11111111,
-            'password': lambda x: make_password('secret'), 
-            'is_superuser': lambda x: True,
-            'is_staff': lambda x: True,
-            'is_active': lambda x: True,
-            'last_login': None,
-            'phone': None,
-            'first_name': None,
-            'last_name': None,
+        seeder.add_entity(Cities, 10, {
+            'name':  lambda x: seeder.faker.text(max_nb_chars=10),
+            'usage': lambda x: seeder.faker.random_int(min=0, max=10)
         })
 
         seeder.execute()
         self.stdout.write(self.style.SUCCESS('Successfully seeded test data'))
+
