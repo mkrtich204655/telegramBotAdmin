@@ -11,7 +11,7 @@ fi
 echo "Checking if seeding is needed..."
 if ! python3 manage.py shell -c "from cities.models import Cities; print(Cities.objects.exists())" | grep "True"; then
     echo "Seeding database with initial data..."
-    python3 manage.py seed_blog  # Replace with your actual seed command
+    python3 manage.py seed
 else
     echo "Database already seeded."
 fi

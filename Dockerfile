@@ -4,7 +4,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 
-WORKDIR /var/www/html/project
+WORKDIR /var/www/html/project/admin
 
 COPY ./req.txt .
 
@@ -23,10 +23,10 @@ python3-dev \
 
 RUN pip3 install --upgrade pip && pip3 install --timeout=60 --retries=5 -r req.txt
 
-COPY . /var/www/html/project
+COPY . /var/www/html/project/admin
 
-COPY entrypoint.sh /var/www/html/project/entrypoint.sh
-RUN chmod +x /var/www/html/project/entrypoint.sh
+# COPY entrypoint.sh /var/www/html/project/admin/entrypoint.sh
+# RUN chmod +x /var/www/html/project/admin/entrypoint.sh
 
 # RUN python /var/www/html/project/manage.py migrate
 
