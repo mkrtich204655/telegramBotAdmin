@@ -31,7 +31,7 @@ class AuthView(ViewSet):
                 return redirect(reverse('login'))
             print(user)
 
-            code = random.randint(100000, 999999)
+            code = random.randint(10000, 99999)
             try:
                 async_to_sync(send_message)(user.tuid, "Hi. Your One Time Password is: " + str(code), None)
             except Exception as e:

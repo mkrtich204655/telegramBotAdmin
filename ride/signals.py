@@ -35,8 +35,10 @@ def call(sender, instance, **kwargs):
 @receiver(pre_delete, sender=Ride)
 def call(sender, instance, **kwargs):
     print(instance, "ride instance pre_delete")
-    passengers = Booking.objects.filter(ride_id=instance.id).first()
+    passengers = instance.rider.all
+    print(passengers, ' thesee are passangers')
     if passengers:
+        print('passangers are exists')
         decrement_driver_activity(instance)
         decrement_driver_rating(instance)
 
@@ -50,6 +52,7 @@ def decrement_driver_rating(instance):
 
 def decrement_driver_activity(instance):
     history = instance.user.history.first()
+    print(history, 'this is a history of driver')
     history.cancelled += 1
     history.save()
 

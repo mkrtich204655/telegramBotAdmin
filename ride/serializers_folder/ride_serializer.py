@@ -26,7 +26,6 @@ class RideSerializer(serializers.Serializer):
     from_city = serializers.SerializerMethodField()
     to_city = serializers.SerializerMethodField()
     car = serializers.SerializerMethodField()
-    user = serializers.SerializerMethodField()
     id = serializers.IntegerField(required=False, allow_null=True, error_messages={
         'invalid': 'The ID must be a valid integer.'
     })
@@ -77,12 +76,17 @@ class RideSerializer(serializers.Serializer):
         car = obj.car
         return CarSerializer(car).data if car else {}
 
+   
+
+class RideDetailForPassengerSerializer(RideSerializer):
+    user = serializers.SerializerMethodField()
+
     def get_user(self, obj):
         user = obj.user
         return UserSerializer(user).data if user else {}
 
 
-class RideDetailSerializer(RideSerializer):
+class RideDetailSerializer(RideDetailForPassengerSerializer):
     bookings = serializers.SerializerMethodField()
 
     def get_bookings(self, obj):

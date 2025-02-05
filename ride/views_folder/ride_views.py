@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.viewsets import ViewSet
-from ride.serializers_folder.ride_serializer import RideSerializer, RideModelSerializer, RideDetailSerializer
+from ride.serializers_folder.ride_serializer import RideSerializer, RideModelSerializer, RideDetailSerializer, RideDetailForPassengerSerializer
 from users.serializers_folder.user_api_serializer import UserApiSerializer
 from telegram_bot.encode import encrypt_json
 from ride.services.ride_service import RideService
@@ -54,7 +54,10 @@ class RideView(ViewSet):
                 return JsonResponse(self.encrypt({'error': 'User not found'}), status=404)
             ride_data['user_id'] = user.id
             rides_list = self.service.get_all_rides(ride_data)
-            return JsonResponse(self.encrypt(RideSerializer(rides_list, many=True).data), safe=False, status=200)
+            # if ride_data['action'] == 'passenger':
+            return JsonResponse(self.encrypt(RideDetailForPassengerSerializer(rides_list, many=True).data), safe=False, status=200)
+            # else: 
+            #     return JsonResponse(self.encrypt(RideDetailForPassengerSerializer(rides_list, many=True).data), safe=False, status=200)
         else:
             print(ride_list_serializer.errors)
             return JsonResponse(self.encrypt(ride_list_serializer.errors), safe=False, status=400)
@@ -65,7 +68,10 @@ class RideView(ViewSet):
             ride_data = ride_list_serializer.validated_data
 
             ride = self.service.get_ride_by_id(ride_data)
-            return JsonResponse(self.encrypt(RideDetailSerializer(ride).data), safe=False, status=200)
+            if ride_data['action'] == 'passenger':
+                return JsonResponse(self.encrypt(RideDetailForPassengerSerializer(ride).data), safe=False, status=200)
+            else:
+                return JsonResponse(self.encrypt(RideDetailSerializer(ride).data), safe=False, status=200)
         else:
             print(ride_list_serializer.errors)
             return JsonResponse(self.encrypt(ride_list_serializer.errors), safe=False, status=400)

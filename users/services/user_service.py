@@ -43,7 +43,7 @@ class UserService:
         return self.model.filter(tuid=tuid).update(username=username)
 
     def update_phone(self, phone, tuid):
-        return self.model.filter(tuid=tuid).update(username=phone)
+        return self.model.filter(tuid=tuid).update(phone=phone)
 
     def get_user_by_uuid(self, tuid):
         return self.model.filter(uuid=tuid).first()

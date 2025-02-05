@@ -1,10 +1,10 @@
 {% load static %}
-<div class="row">
+<div class="row min-vh-100">
     <div class="content-wrapper">
         <div class="d-xl-flex justify-content-between align-items-start border-bottom pb-3">
             <h2 class="text-dark font-weight-bold mb-2"> My Rides </h2>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 mt-3">
 
             {% for item in items %}
                 <div class="row justify-content-center">
@@ -34,6 +34,29 @@
                                     <i class="mdi mdi-coin menu-icon"></i> {{ item.price }} £ for
                                     a place
                                 </div>
+                                <hr>
+                                <h5 class="text-dark mt-2 mb-2">Bookings</h5>
+                                <hr>
+                                {% for l in item.rider.all %}
+                                    <div class="mb-0 text-dark font-weight-normal">
+                                        <i class="mdi mdi-seat-recline-extra menu-icon"></i>
+                                        Places {{ l.places }} /  <i class="mdi mdi-coin menu-icon"></i> {{ l.total_price }} total price.
+                                    </div>
+                                    <div class="mb-0 text-dark font-weight-normal">
+                                        Passenger ID: {{ l.passenger.uuid }}
+                                    </div>
+                                    <div class="mb-0 text-dark font-weight-normal">
+                                        {% if l.passenger.username %}
+                                            Passenger telegran <a href="https://t.me/{{ l.passenger.username }}"> @{{l.passenger.username}}</a>
+                                        {% else %}
+                                            Passenger phone number <a href="tel:+{{ l.passenger.phone }}">+{{ l.passenger.phone }}</a>+{{ l.passenger.phone }}
+                                        {% endif %}
+                                    </div>
+                                    <hr>
+                                {% empty %}
+                                    <div> have not any bookings</div>
+                                {% endfor %}
+
                             </div>
                         </div>
                     </div>

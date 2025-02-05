@@ -2,29 +2,30 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-category">FIND WAY WEB</li>
-        <li class="nav-item">
+        <li class="nav-item mt-1 mb-1">
             <a class="nav-link" href="{% url 'index' %}">
                 <span class="icon-bg"><i class="mdi mdi-view-dashboard menu-icon"></i></span>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        <li class="nav-item">
-            <p class="nav-link">
+        <li class="nav-item mt-1 mb-1" style="cursor: pointer;">
+            <spam class="nav-link">
                 <span class="icon-bg"><i class="mdi mdi-map menu-icon"></i></span>
                 <span class="menu-title" id="rides">Rides</span>
-            </p>
+            </spam>
         </li>
-        <li class="nav-item">
-            <p class="nav-link">
+    
+        <li class="nav-item mt-1 mb-1" style="cursor: pointer;">
+            <spam class="nav-link">
                 <span class="icon-bg"><i class="mdi mdi-seat-recline-extra menu-icon"></i></span>
                 <span class="menu-title" id="bookings">Bookings</span>
-            </p>
+            </spam>
         </li>
-        <li class="nav-item">
-            <p class="nav-link">
+        <li class="nav-item mt-1 mb-1" style="cursor: pointer;">
+            <spam class="nav-link">
                 <span class="icon-bg"><i class="mdi mdi-car menu-icon"></i></span>
                 <span class="menu-title" id="cars">My Car</span>
-            </p>
+            </spam>
         </li>
         <li class="nav-item  border-bottom border-top pt-2 pb-2 pr-2">
             <div class="user-details">
@@ -46,7 +47,7 @@
                                         <a href="https://t.me/{{ user.username }}" target="_blank" class="text-primary">
                                             @{{ user.username }}</a>
                                     {% else %}
-                                        <i class="mdi mdi-phone mr-1"></i> +{{ user.phone }}
+                                        <i class="mdi mdi-phone mr-1"></i> <a href="tel:+{{ user.phone }}">+{{ user.phone }}</a>
                                     {% endif %}
                                 </div>
                             </div>

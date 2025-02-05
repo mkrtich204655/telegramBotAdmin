@@ -6,9 +6,7 @@ from users.serializers_folder.rating_serializer import RatingSerializer
 class UserSerializer(serializers.Serializer):
     rating = serializers.SerializerMethodField()
     history = serializers.SerializerMethodField()
-    rides = serializers.SerializerMethodField()
-    bookings = serializers.SerializerMethodField()
-    cars = serializers.SerializerMethodField()
+
 
     uuid = serializers.IntegerField(max_value=999999, min_value=100000, error_messages={
             'invalid': 'The uuid must be a valid integer.',
@@ -36,6 +34,11 @@ class UserSerializer(serializers.Serializer):
         history = obj.history.first()
         return HistorySerializer(history).data if history else {}
 
+class UserSerializerDetails(UserSerializer):
+    rides = serializers.SerializerMethodField()
+    bookings = serializers.SerializerMethodField()
+    cars = serializers.SerializerMethodField()
+
     def get_rides(self, obj):
         rides = obj.user.all()
         return rides or {}
@@ -43,6 +46,7 @@ class UserSerializer(serializers.Serializer):
     def get_bookings(self, obj):
         bookings = obj.passenger.all()
         return bookings or {}
+
 
     def get_cars(self, obj):
         cars = obj.cars.all()

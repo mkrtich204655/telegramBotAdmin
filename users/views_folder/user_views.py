@@ -27,10 +27,16 @@ class UserView(ViewSet):
             try:
                 user = self.service.get_user_by_TUID(id=tuid)
                 if username != user.username:
+                    print('row', 30)
                     self.service.update_username(username=username, tuid=tuid)
                 if phone is not None and phone != user.phone:
+                    print('row', 33)
                     self.service.update_phone(phone=phone, tuid=tuid)
+
+                user.refresh_from_db()
                 if username is None and user.phone is None:
+                    print('row', 37)
+                    print(user.__dict__)
                     return JsonResponse(self.encrypt({'message': 'not contact data'}), status=401)
             except CustomUser.DoesNotExist:
                 if username or phone:
@@ -39,7 +45,6 @@ class UserView(ViewSet):
                     return JsonResponse(self.encrypt({'message': 'not contact data'}), status=401)
             except Exception as e:
                 return JsonResponse(self.encrypt({'message': str(e)}), status=500)
-
             result = self.userSerializer(user).data
             return JsonResponse(self.encrypt(result), status=200)
         else:

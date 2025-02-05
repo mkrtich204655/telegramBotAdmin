@@ -7,5 +7,5 @@ class NewBooking(BaseComponent):
         super().__init__()
 
     def call(self, chat_id, passenger):
-        ride_text = f"new booking text @{passenger.username}"
+        ride_text = f"new booking text { '@'+passenger.username if passenger.username else '+' + str(passenger.phone)}"
         self.async_call(self.send)(chat_id, ride_text)

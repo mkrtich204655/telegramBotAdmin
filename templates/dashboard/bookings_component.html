@@ -1,10 +1,10 @@
 {% load static %}
-<div class="row">
+<div class="row min-vh-100">
     <div class="content-wrapper">
         <div class="d-xl-flex justify-content-between align-items-start border-bottom pb-3">
             <h2 class="text-dark font-weight-bold mb-2"> My Rides </h2>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 mt-3">
 
             {% for item in items %}
                 <div class="row justify-content-center">
@@ -30,14 +30,17 @@
                                     You booked {{ item.places }} places, total price {{ item.total_price }} <i
                                         class="mdi mdi-coin menu-icon"></i>
                                 </div>
+                                <hr>
+                                <h5 class="text-dark">Driver</h5>
+                                <hr>
                                 <div class="mb-0 mt-2 text-dark font-weight-normal">
                                     Driver ID: {{ item.ride.user.uuid }}
                                 </div>
                                 <div class="mb-0 text-dark font-weight-normal">
                                     {% if item.ride.user.username %}
-                                        Driver telegram <a href="https://t.me/{{ item.ride.user.username }}"></a>
+                                        Driver telegram <a href="https://t.me/{{ item.ride.user.username }}"> @{{item.ride.user.username}}</a>
                                     {% else %}
-                                         Driver phone number +{{ item.ride.user.phone }}
+                                         Driver phone number  <a href="tel:+{{ item.ride.user.phone }}">+{{ item.ride.user.phone }}</a>
                                     {% endif %}
                                 </div>
                             </div>

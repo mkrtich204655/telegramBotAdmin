@@ -5,7 +5,7 @@
             <h2 class="text-dark font-weight-bold mb-2"> My Cars </h2>
         </div>
         <div class="col-md-12">
-            <div class="tab-content tab-transparent-content py-5 px-2 mt-3" style="background-color: #d9d9d9">
+            <div class="tab-content tab-transparent-content py-5 px-2 mt-3" style="background-color: #fff">
                 <table class="table">
                     <thead>
                     <tr>
@@ -19,11 +19,15 @@
                     <tbody>
                     {% for item in items %}
                         <tr>
-                            <td><i class="mdi mdi-car menu-icon" style="color: {{ item.color }}; width: 30px"></i></td>
+                            <td style="background-color: #e6e6e64d;">
+                                <!-- <div {% if item.color == 'White' %} class="p-1" style="background: #000; width: fit-content;" {% endif %}> -->
+                                    <i class="mdi mdi-car menu-icon" style="color: {{ item.color }}; width: 30px"></i>
+                                <!-- </div> -->
+                            </td>
                             <td>{{ item.color }}</td>
-                            <td>{{ item.model }}</td>
+                            <td style="background-color: #e6e6e64d;" >{{ item.model }}</td>
                             <td>{{ item.number }}</td>
-                            <td><a href="#">Delete</a></td>
+                            <td style="background-color: #e6e6e64d;" ><a href="#">Delete</a></td>
                         </tr>
                     {% empty %}
                         <tr>

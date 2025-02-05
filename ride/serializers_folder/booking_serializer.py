@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from ride.serializers_folder.ride_serializer import RideSerializer
-
+from ride.serializers_folder.ride_serializer import RideSerializer, RideDetailForPassengerSerializer
+from users.serializers_folder.user_serializer import UserSerializer
 
 class BookingSerializer(serializers.Serializer):
     id = serializers.IntegerField(required=False, allow_null=True, error_messages={
@@ -22,11 +22,16 @@ class BookingSerializer(serializers.Serializer):
 
 class BookingDetailSerializer(BookingSerializer):
     ride = serializers.SerializerMethodField()
+    user = serializers.SerializerMethodField()
 
     def get_ride(self, obj):
         ride = obj.ride
         print(ride.__dict__, 'from serializer booking', 'ride')
-        return RideSerializer(ride).data if ride else {}
+        return RideDetailForPassengerSerializer(ride).data if ride else {}
+    
+    def get_user(self, obj):
+        user = obj.passenger
+        return UserSerializer(user).data if user else {}
 
 
 class BookingModelSerializer:
