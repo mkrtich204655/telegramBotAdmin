@@ -9,7 +9,7 @@ else
 fi
 
 echo "Checking if seeding is needed..."
-if ! python3 manage.py shell -c "from cities.models import Cities; print(Cities.objects.exists())" | grep "True"; then
+if ! python3 manage.py shell -c "from users.models import CustomUser; print(CustomUser.objects.exists())" | grep "True"; then
     echo "Seeding database with initial data..."
     python3 manage.py seed
 else
