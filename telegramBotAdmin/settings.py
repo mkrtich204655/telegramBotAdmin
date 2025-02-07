@@ -67,6 +67,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'telegramBotAdmin.urls'
 
+TEST_RUNNER = 'telegramBotAdmin.test_runner.TestRunner'
 
 TEMPLATES = [
     {
